@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simon Valentine – Tech Option 3: AI Gradient</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --white: #ffffff;
+    --ink: #09090b;
+    --mid: #5E5E5E;
+    --soft: #9E9E9E;
+    --border: #DDDDD9;
+    --bg: #F3F2EF;
+    --blue: #0A66C2;
+    --purple: #000000;
+    --indigo: #0A66C2;
+    --pink: #db2777;
+    --cyan: #0891b2;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Gradient mesh background for hero ── */
+  .mesh-bg {
+    position: absolute; inset: 0; overflow: hidden; z-index: 0;
+    background: var(--bg);
+  }
+  .mesh-bg::before {
+    content: '';
+    position: absolute; top: -200px; left: -200px;
+    width: 900px; height: 900px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,102,194,0.12) 0%, transparent 60%);
+    animation: floatA 12s ease-in-out infinite alternate;
+  }
+  .mesh-bg::after {
+    content: '';
+    position: absolute; top: -100px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,65,130,0.1) 0%, transparent 60%);
+    animation: floatB 10s ease-in-out infinite alternate;
+  }
+  .mesh-orb {
+    position: absolute; bottom: -100px; left: 30%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,102,194,0.08) 0%, transparent 60%);
+    animation: floatC 14s ease-in-out infinite alternate;
+  }
+  @keyframes floatA { from { transform: translate(0,0) scale(1); } to { transform: translate(80px, 60px) scale(1.1); } }
+  @keyframes floatB { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px, 80px) scale(0.95); } }
+  @keyframes floatC { from { transform: translate(0,0); } to { transform: translate(40px, -40px); } }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 60px;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(24px) saturate(200%);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-gem {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-gem::after {
+    content: 'SV'; color: white; font-size: 10px; font-weight: 800;
+  }
+  .logo-text { font-size: 15px; font-weight: 700; letter-spacing: -0.025em; color: var(--ink); }
+  nav ul { list-style: none; display: flex; }
+  nav a { color: var(--mid); text-decoration: none; font-size: 14px; font-weight: 500; padding: 7px 13px; border-radius: 7px; transition: all 0.15s; }
+  nav a:hover { color: var(--ink); background: var(--bg); }
+  .nav-r { display: flex; gap: 8px; align-items: center; }
+  .n-ghost { padding: 7px 16px; font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none; border-radius: 8px; border: 1px solid var(--border); transition: all 0.15s; }
+  .n-ghost:hover { background: var(--bg); }
+  .n-fill {
+    padding: 7px 16px; font-size: 14px; font-weight: 600; color: white; text-decoration: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #0A66C2, #004182);
+    box-shadow: 0 1px 3px rgba(10,102,194,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: all 0.15s;
+  }
+  .n-fill:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(10,102,194,0.4); }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center;
+    padding: 120px 48px 80px; overflow: hidden;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 880px; }
+
+  /* Gradient announcement bar */
+  .hero-announce {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 4px 4px 4px 12px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 100px; margin-bottom: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 13px; color: var(--mid);
+  }
+  .announce-badge {
+    background: linear-gradient(135deg, #0A66C2, #004182);
+    color: white; font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+    padding: 4px 10px; border-radius: 100px;
+  }
+  .announce-arrow { color: var(--mid); }
+
+  /* Giant headline */
+  .hero h1 {
+    font-size: clamp(56px, 8vw, 100px);
+    font-weight: 900; letter-spacing: -0.045em; line-height: 0.95;
+    margin-bottom: 32px;
+  }
+  /* gradient on specific word */
+  .g-word {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--indigo) 35%, var(--purple) 70%, #a855f7 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 19px; color: var(--mid); line-height: 1.7;
+    max-width: 520px; margin: 0 auto 48px; font-weight: 400;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 72px; }
+  .btn-main {
+    padding: 14px 28px; border-radius: 10px; font-size: 15px; font-weight: 600;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #0A66C2, #004182);
+    color: white;
+    box-shadow: 0 2px 6px rgba(10,102,194,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(10,102,194,0.4); }
+  .btn-sec {
+    padding: 14px 24px; border-radius: 10px; font-size: 15px; font-weight: 500;
+    text-decoration: none; color: var(--ink);
+    background: white; border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.15s;
+  }
+  .btn-sec:hover { background: var(--bg); border-color: #d4d4d8; }
+
+  /* Social proof row */
+  .social-proof {
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    font-size: 13px; color: var(--soft);
+  }
+  .proof-divider { width: 1px; height: 16px; background: var(--border); }
+  .proof-stars { color: #f59e0b; letter-spacing: 1px; }
+  .proof-bold { font-weight: 600; color: var(--mid); }
+
+  /* FLOATING CARDS */
+  .float-cards {
+    position: relative; margin: 80px auto 0;
+    max-width: 960px; height: 360px;
+  }
+  /* Main profile card */
+  .fc-main {
+    position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+    width: 520px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+  .fc-main-top {
+    height: 120px;
+    background: linear-gradient(135deg, #EBF3FB 0%, #F0F7FF 50%, #fce7f3 100%);
+    position: relative;
+  }
+  .fc-main-top::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg, transparent, transparent 40px,
+      rgba(10,102,194,0.03) 40px, rgba(10,102,194,0.03) 41px
+    ),
+    repeating-linear-gradient(
+      0deg, transparent, transparent 40px,
+      rgba(10,102,194,0.03) 40px, rgba(10,102,194,0.03) 41px
+    );
+  }
+  .fc-avatar {
+    position: absolute; bottom: -28px; left: 24px;
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, #0A66C2, #004182);
+    border: 3px solid white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: white;
+  }
+  .fc-main-body { padding: 40px 24px 24px; }
+  .fc-name { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+  .fc-role { font-size: 13px; color: var(--mid); margin-top: 2px; margin-bottom: 16px; }
+  .fc-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fc-tag {
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+    background: #EBF3FB; color: var(--indigo);
+  }
+
+  /* Side mini-cards */
+  .fc-side {
+    position: absolute;
+    background: white; border: 1px solid var(--border);
+    border-radius: 16px; padding: 18px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+  .fc-left { left: 0; top: 40px; width: 180px; }
+  .fc-right { right: 0; top: 60px; width: 190px; }
+  .fc-bottom { left: 50%; bottom: 0; transform: translateX(-50%); width: 300px; }
+  .fc-stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--soft); margin-bottom: 6px; }
+  .fc-stat-val { font-size: 28px; font-weight: 900; letter-spacing: -0.04em; }
+  .fc-stat-sub { font-size: 12px; color: var(--soft); margin-top: 2px; }
+  .fc-stat-prog { height: 3px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .fc-prog-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--indigo), var(--purple)); }
+  .fc-msg {
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .fc-msg-av { width: 28px; height: 28px; border-radius: 7px; background: linear-gradient(135deg, var(--blue), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; flex-shrink: 0; margin-top: 2px; }
+  .fc-msg-bubble { background: #f4f4f5; border-radius: 0 10px 10px 10px; padding: 10px 12px; font-size: 12px; color: var(--mid); line-height: 1.5; flex: 1; }
+  .fc-msg-name { font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+
+  /* LOGOS */
+  .logos { padding: 36px 48px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .logos-row { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; }
+  .logos-label { text-align: center; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--soft); margin-bottom: 20px; }
+  .logo-co { font-size: 14px; font-weight: 800; color: #d4d4d8; letter-spacing: -0.02em; transition: color 0.15s; }
+  .logo-co:hover { color: var(--mid); }
+
+  /* SERVICES */
+  .services { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+  .sec-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--indigo); margin-bottom: 16px;
+  }
+  h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 56px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    transition: all 0.2s; position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .svc-card:hover { background: white; border-color: #B0D4F1; box-shadow: 0 0 0 4px rgba(10,102,194,0.06), 0 16px 40px rgba(0,0,0,0.07); transform: translateY(-3px); }
+  /* Gradient top border on hover */
+  .svc-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .svc-card:hover::before { opacity: 1; }
+  .svc-emoji { font-size: 32px; margin-bottom: 16px; display: block; }
+  .svc-card h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .svc-card p { font-size: 14px; color: var(--mid); line-height: 1.75; }
+  .svc-more { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--indigo); text-decoration: none; opacity: 0; transform: translateY(4px); transition: all 0.2s; }
+  .svc-card:hover .svc-more { opacity: 1; transform: translateY(0); }
+
+  /* TESTIMONIALS */
+  .testi-section { padding: 100px 48px; background: var(--bg); }
+  .testi-wrap { max-width: 1100px; margin: 0 auto; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+  .testi {
+    background: white; border: 1px solid var(--border);
+    border-radius: 18px; padding: 28px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .testi:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-2px); border-color: #B0D4F1; }
+  /* Subtle gradient shine on top of first card */
+  .testi.featured { border-image: linear-gradient(135deg, #0A66C2, #004182) 1; }
+  .testi-quote-mark {
+    font-size: 48px; line-height: 0.8; margin-bottom: 16px;
+    background: linear-gradient(135deg, #0A66C2, #004182);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    font-style: italic; font-weight: 900;
+  }
+  .testi-text { font-size: 14px; color: #3f3f46; line-height: 1.75; margin-bottom: 22px; }
+  .testi-footer { display: flex; align-items: center; gap: 10px; padding-top: 18px; border-top: 1px solid var(--border); }
+  .t-av {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, #EBF3FB, #F0F7FF);
+    color: var(--indigo); font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .t-name { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+  .t-role { font-size: 11px; color: var(--soft); margin-top: 1px; }
+
+  /* ARTICLES */
+  .articles { padding: 100px 48px; max-width: 1100px; margin: 0 auto; }
+  .art-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+  .art-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .art-card {
+    border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+    background: white; transition: all 0.2s;
+  }
+  .art-card:hover { border-color: #B0D4F1; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+  .art-img {
+    height: 160px;
+    background: linear-gradient(135deg, #EBF3FB 0%, #F0F7FF 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--indigo); font-size: 11px; font-weight: 500;
+    position: relative; overflow: hidden;
+  }
+  .art-img::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      90deg, transparent, transparent 30px,
+      rgba(10,102,194,0.05) 30px, rgba(10,102,194,0.05) 31px
+    );
+  }
+  .art-body { padding: 20px; }
+  .art-cat { font-size: 11px; font-weight: 700; color: var(--indigo); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .art-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.4; margin-bottom: 8px; }
+  .art-date { font-size: 12px; color: var(--soft); }
+
+  /* CTA */
+  .cta-outer { padding: 0 48px 80px; }
+  .cta {
+    position: relative; overflow: hidden;
+    border-radius: 24px; padding: 72px 64px;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 48px; align-items: center;
+    background: var(--ink);
+  }
+  /* animated gradient bg */
+  .cta-mesh {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(10,102,194,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(0,65,130,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 90%, rgba(10,102,194,0.2) 0%, transparent 50%);
+  }
+  .cta-inner { position: relative; z-index: 1; }
+  .cta-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #a5b4fc; margin-bottom: 14px; }
+  .cta h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; letter-spacing: -0.03em; color: white; margin-bottom: 12px; }
+  .cta p { color: rgba(255,255,255,0.55); font-size: 16px; }
+  .cta-actions { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+  .btn-cta {
+    background: white; color: var(--indigo);
+    padding: 14px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    white-space: nowrap; transition: all 0.15s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .btn-cta:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .btn-cta-ghost {
+    color: rgba(255,255,255,0.6); text-decoration: none;
+    font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; gap: 5px;
+    transition: color 0.15s;
+  }
+  .btn-cta-ghost:hover { color: white; }
+
+  /* FOOTER */
+  footer {
+    padding: 36px 48px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .f-logo { display: flex; align-items: center; gap: 9px; }
+  .f-gem {
+    width: 22px; height: 22px; border-radius: 5px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; color: white;
+  }
+  .f-name { font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
+  .f-links { display: flex; gap: 20px; }
+  .f-links a { color: var(--soft); text-decoration: none; font-size: 13px; transition: color 0.15s; }
+  .f-links a:hover { color: var(--ink); }
+  .f-copy { font-size: 12px; color: var(--soft); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-gem"></div>
+    <span class="logo-text">Simon Valentine</span>
+  </a>
+  <ul>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Ventures</a></li>
+    <li><a href="#">Articles</a></li>
+  </ul>
+  <div class="nav-r">
+    <a href="#" class="n-ghost">Sign in</a>
+    <a href="#" class="n-fill">Get started →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="mesh-bg"><div class="mesh-orb"></div></div>
+  <div class="hero-inner">
+    <div class="hero-announce">
+      <span class="announce-badge">AI-ERA TALENT</span>
+      Now taking Q2 2026 engagements
+      <span class="announce-arrow">→</span>
+    </div>
+
+    <h1>Hire smarter.<br><span class="g-word">Think bigger.</span><br>Grow faster.</h1>
+
+    <p class="hero-sub">Simon Valentine is the talent acquisition consultant, advisor, and community builder helping ambitious organisations thrive in the AI era.</p>
+
+    <div class="hero-btns">
+      <a href="#" class="btn-main">Work with me →</a>
+      <a href="#" class="btn-sec">Read my story</a>
+    </div>
+
+    <div class="social-proof">
+      <span class="proof-stars">★★★★★</span>
+      <span><span class="proof-bold">5.0</span> client rating</span>
+      <div class="proof-divider"></div>
+      <span><span class="proof-bold">20+</span> years experience</span>
+      <div class="proof-divider"></div>
+      <span><span class="proof-bold">40+</span> industries served</span>
+    </div>
+
+    <div class="float-cards">
+      <div class="fc-main">
+        <div class="fc-main-top">
+          <div class="fc-avatar">SV</div>
+        </div>
+        <div class="fc-main-body">
+          <div class="fc-name">Simon Valentine</div>
+          <div class="fc-role">Talent Acquisition Consultant · Advisor · Investor</div>
+          <div class="fc-tags">
+            <span class="fc-tag">Advisory</span>
+            <span class="fc-tag">Consulting</span>
+            <span class="fc-tag">TA Strategy</span>
+            <span class="fc-tag">AI & Hiring</span>
+            <span class="fc-tag">Community</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-side fc-left">
+        <div class="fc-stat-label">Geographies</div>
+        <div class="fc-stat-val">6</div>
+        <div class="fc-stat-sub">Global markets</div>
+        <div class="fc-stat-prog"><div class="fc-prog-fill" style="width:75%"></div></div>
+      </div>
+
+      <div class="fc-side fc-right">
+        <div class="fc-stat-label">Experience</div>
+        <div class="fc-stat-val">20+</div>
+        <div class="fc-stat-sub">Years in TA</div>
+        <div class="fc-stat-prog"><div class="fc-prog-fill" style="width:100%"></div></div>
+      </div>
+
+      <div class="fc-side fc-bottom" style="padding:16px 18px">
+        <div class="fc-msg">
+          <div class="fc-msg-av">AL</div>
+          <div class="fc-msg-bubble">
+            <div class="fc-msg-name">Anish Lalchandani</div>
+            "Absolutely transformed how we think about hiring. Results in 90 days."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logos">
+  <div class="logos-label">Trusted by teams at</div>
+  <div class="logos-row">
+    <span class="logo-co">Salesforce</span>
+    <span class="logo-co">Microsoft</span>
+    <span class="logo-co">Deloitte</span>
+    <span class="logo-co">Unilever</span>
+    <span class="logo-co">Goldman Sachs</span>
+    <span class="logo-co">BCG</span>
+  </div>
+</div>
+
+<section class="services">
+  <div class="sec-label">✦ Services</div>
+  <h2>Three ways to work<br>with Simon.</h2>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <span class="svc-emoji">🎯</span>
+      <h3>Advisory</h3>
+      <p>Strategic counsel for leadership teams navigating talent complexity, building succession pipelines, and future-proofing their organisations.</p>
+      <a href="#" class="svc-more">Learn more →</a>
+    </div>
+    <div class="svc-card">
+      <span class="svc-emoji">⚙️</span>
+      <h3>Consulting</h3>
+      <p>End-to-end TA transformation — from auditing what's broken to building the systems and capability to fix it permanently.</p>
+      <a href="#" class="svc-more">Learn more →</a>
+    </div>
+    <div class="svc-card">
+      <span class="svc-emoji">🌐</span>
+      <h3>Community</h3>
+      <p>A curated peer network for talent leaders sharing insights, challenging thinking, and navigating the AI disruption of recruitment together.</p>
+      <a href="#" class="svc-more">Learn more →</a>
+    </div>
+  </div>
+</section>
+
+<section class="testi-section">
+  <div class="testi-wrap">
+    <div class="sec-label">✦ Testimonials</div>
+    <h2>Trusted by the people<br>who build great teams.</h2>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">Simon brings a rare combination of strategic thinking and executional excellence to talent acquisition. Working with him fundamentally changed how we approach hiring.</p>
+        <div class="testi-footer">
+          <div class="t-av">AL</div>
+          <div><div class="t-name">Anish Lalchandani</div><div class="t-role">Chief People Officer</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">A genuinely insightful voice in the industry. Simon has an exceptional ability to anticipate where the talent market is heading before anyone else does.</p>
+        <div class="testi-footer">
+          <div class="t-av">DP</div>
+          <div><div class="t-name">Dawn Pellar</div><div class="t-role">Global Talent Director</div></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">His framework for talent acquisition is unlike anything else in the market. We saw real, measurable results within the first 90 days of working together.</p>
+        <div class="testi-footer">
+          <div class="t-av">TY</div>
+          <div><div class="t-name">Tom Young</div><div class="t-role">VP People & Culture</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="articles">
+  <div class="art-header">
+    <div>
+      <div class="sec-label">✦ Insights</div>
+      <h2 style="margin-bottom:0">Latest thinking.</h2>
+    </div>
+    <a href="#" style="color:var(--indigo);text-decoration:none;font-size:14px;font-weight:600">All articles →</a>
+  </div>
+  <div class="art-grid">
+    <div class="art-card">
+      <div class="art-img">[ Article Image ]</div>
+      <div class="art-body">
+        <div class="art-cat">Talent Strategy</div>
+        <div class="art-title">Why Continuous Learning is the New Competitive Advantage</div>
+        <div class="art-date">February 2026 · 5 min read</div>
+      </div>
+    </div>
+    <div class="art-card">
+      <div class="art-img">[ Article Image ]</div>
+      <div class="art-body">
+        <div class="art-cat">AI & Recruitment</div>
+        <div class="art-title">The Real Impact of AI on Talent Acquisition in 2026</div>
+        <div class="art-date">January 2026 · 7 min read</div>
+      </div>
+    </div>
+    <div class="art-card">
+      <div class="art-img">[ Article Image ]</div>
+      <div class="art-body">
+        <div class="art-cat">Community</div>
+        <div class="art-title">Building a Recruitment Community That Actually Matters</div>
+        <div class="art-date">December 2025 · 6 min read</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-outer">
+  <div class="cta">
+    <div class="cta-mesh"></div>
+    <div class="cta-inner">
+      <div class="cta-tag">✦ Let's work together</div>
+      <h2>Ready to rethink<br>how you hire?</h2>
+      <p>Let's have a conversation about what's possible for your organisation.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#" class="btn-cta">Start a conversation →</a>
+      <a href="#" class="btn-cta-ghost">Or read more about me ↗</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-logo">
+    <div class="f-gem">SV</div>
+    <span class="f-name">Simon Valentine</span>
+  </div>
+  <div class="f-links">
+    <a href="#">About</a><a href="#">Work</a><a href="#">Ventures</a>
+    <a href="#">Articles</a><a href="#">LinkedIn</a><a href="#">Privacy</a>
+  </div>
+  <div class="f-copy">© 2026 Simon Valentine Limited</div>
+</footer>
+
+</body>
+</html>

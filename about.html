@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – Simon Valentine</title>
+<link rel="stylesheet" href="sv-shared.css">
+<style>
+  .bio-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start; margin-top: 64px; }
+  .bio-photo {
+    position: sticky; top: 80px;
+    border-radius: 20px; overflow: hidden;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--indigo-light) 0%, var(--purple-light) 100%);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px; color: var(--mid);
+  }
+
+  .photo-label { font-size: 13px; font-weight: 500; }
+  .bio-badge {
+    margin-top: 20px;
+    background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .badge-item { text-align: center; }
+  .badge-num { font-size: 26px; font-weight: 900; letter-spacing: -0.04em; background: linear-gradient(135deg, #4f46e5, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .badge-lbl { font-size: 10px; color: var(--soft); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .bio-content {}
+  .bio-block { margin-bottom: 40px; }
+  .bio-block h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .bio-block h3 span { font-size: 18px; }
+  .bio-block p { font-size: 15px; color: var(--mid); line-height: 1.85; margin-bottom: 12px; }
+  .role-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .role-pill { background: var(--indigo-light); color: var(--indigo); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 100px; border: 1px solid rgba(79,70,229,0.25); }
+  .loc-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .loc-item { background: #fafafa; border: 1px solid var(--border); border-radius: 100px; padding: 5px 14px; font-size: 13px; color: var(--mid); font-weight: 500; display: flex; align-items: center; gap: 5px; }
+
+  .about-real-photo { width:100%; height:460px; object-fit:cover; border-radius:20px; display:block; }
+  img.t-av { object-fit:cover; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="simon-tech3-FINAL.html" class="logo">
+    <img src="logo.png" alt="Simon Valentine logo" style="width:28px;height:28px;border-radius:7px;object-fit:cover;display:block;">
+    <span class="logo-text">Simon.</span>
+  </a>
+  <ul>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="ventures.html">Ventures</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="go.html">Links</a></li>
+  </ul>
+  <div class="nav-r">
+    <a href="https://www.linkedin.com/in/simonvalentine" target="_blank" rel="noopener" class="n-ghost">LinkedIn</a>
+    <a href="contact.html" class="n-fill">Contact →</a>
+  
+    <button class="nav-burger" id="nav-burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="mesh-bg"><div class="mesh-orb"></div></div>
+  <div class="page-hero-inner">
+    <div class="page-breadcrumb"><a href="simon-tech3-FINAL.html">Home</a> / About</div>
+    <h1>My <span class="g-word">story.</span></h1>
+    <p>Learn a little bit more about me.</p>
+  </div>
+</section>
+
+<div class="section-wrap">
+  <div class="bio-grid">
+
+    <div>
+      <div class="bio-photo">
+        <img src="https://simonvalentine.com/wp-content/uploads/2022/02/SimonV-2-2-scaled-1-2048x1366.jpeg" alt="Simon Valentine" class="about-real-photo">
+      </div>
+      <div class="bio-badge">
+        <div class="badge-item"><div class="badge-num">20+</div><div class="badge-lbl">Years</div></div>
+        <div class="badge-item"><div class="badge-num">3</div><div class="badge-lbl">Continents</div></div>
+        <div class="badge-item"><div class="badge-num">40+</div><div class="badge-lbl">Industries</div></div>
+      </div>
+      <div class="role-pills" style="margin-top:20px">
+        <span class="role-pill">Consultant</span>
+        <span class="role-pill">Advisor</span>
+        <span class="role-pill">Investor</span>
+        <span class="role-pill">Leader</span>
+      </div>
+      <div class="loc-list">
+        <span class="loc-item">🇨🇭 Switzerland</span>
+        <span class="loc-item">🇬🇧 England</span>
+        <span class="loc-item">🇳🇿 New Zealand</span>
+      </div>
+    </div>
+
+    <div class="bio-content">
+      <div class="sec-label">✦ My Story</div>
+      <h2 style="margin-bottom:32px">There's more to hiring than meets the eye.</h2>
+
+      <div class="bio-block">
+        <h3><span>🌱</span> The Early Years</h3>
+        <p>I grew up in rural New Zealand, with two lower-middle-class, hard-working parents and I was one of seven children.</p>
+        <p>As a child I grew up in a large loving family living in a number of different small towns across New Zealand. My parents often worked two jobs to support all 7 children and a lot of my life lessons were taught to me by my siblings.</p>
+      </div>
+
+      <div class="bio-block">
+        <h3><span>🎓</span> My Career</h3>
+        <p>I started working in recruitment straight out of University while living in New Zealand.</p>
+        <p>Once I finished my degree I asked my professor how can I apply the skills I have learnt at University. He said the best way is in a company's Human Resources department and the best way to get there is via Recruitment. The rest is history.</p>
+      </div>
+
+      <div class="bio-block">
+        <h3><span>🌍</span> Talent Acquisition</h3>
+        <p>I have since gone on to work in Talent Acquisition (aka recruitment) for over 20+ years.</p>
+        <p>I have been fortunate enough to travel the world and be exposed to various cultures across the globe with my work.</p>
+      </div>
+
+      <div style="margin-top:40px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="work.html" class="btn-grad">How to work with me →</a>
+        <a href="contact.html" class="btn-outline">Get in touch</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div class="logos">
+  <div class="logos-label">Employers, Clients &amp; Partners — Just to name a few</div>
+  <div class="logos-row">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/c-1-e1629827275233.png" class="logo-img" alt="Client">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/Untitled-6-1-e1629827943379.png" class="logo-img" alt="Client">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/Untitled-4-1-1024x683.png" class="logo-img" alt="Client">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/Untitled-7-1.png" class="logo-img" alt="Client">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/uber-copy-1.png" class="logo-img" alt="Uber">
+    <img src="https://simonvalentine.com/wp-content/uploads/2021/09/Untitled-2-1-1024x600.png" class="logo-img" alt="Client">
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section-wrap">
+  <div class="sec-label">✦ Testimonials</div>
+  <h2>What people say.</h2>
+  <div class="testi-grid">
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-qm">"</div>
+      <p class="testi-text">Simon always demonstrated innovative ways to approach hiring, be it new tech or resourcing strategies.</p>
+      <div class="testi-footer"><img src="https://simonvalentine.com/wp-content/uploads/2021/08/ani.png" class="t-av" alt="Anish Lalchandani"><div><div class="t-name">Anish Lalchandani</div><div class="t-role">HR Leader</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-qm">"</div>
+      <p class="testi-text">Simon is one of the hardest working people I have had the pleasure to work with. Very professional and dedicated.</p>
+      <div class="testi-footer"><img src="https://simonvalentine.com/wp-content/uploads/2021/08/daw.png" class="t-av" alt="Dawn Pellar"><div><div class="t-name">Dawn Pellar</div><div class="t-role">Global Leader</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-qm">"</div>
+      <p class="testi-text">Simon demonstrated professionalism, innovativeness and work ethic all but assure successful programs.</p>
+      <div class="testi-footer"><img src="https://simonvalentine.com/wp-content/uploads/2021/08/tom.png" class="t-av" alt="Tom Young"><div><div class="t-name">Tom Young</div><div class="t-role">Director</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section-wrap" style="padding-top:0">
+  <div class="cta-band">
+    <div class="cta-band-mesh"></div>
+    <div class="cta-band-inner">
+      <div class="cta-band-tag">✦ Let's work together</div>
+      <h2>Ready to take your talent to the next level?</h2>
+      <p>Let's have a conversation about what's possible.</p>
+    </div>
+    <div class="cta-band-actions">
+      <a href="contact.html" class="btn-cta">Get in touch →</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand"><img src="logo.png" alt="Simon Valentine logo" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;"><span class="f-name">Simon.</span></div>
+      <div class="f-tagline">Taking You To The Next Level.</div>
+      <div class="f-social">
+        <a href="https://www.linkedin.com/in/simonvalentine" target="_blank" rel="noopener" class="f-social-btn" title="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>      </div>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-nav-col">
+        <h4>Navigate</h4>
+        <a href="about.html">About</a><a href="work.html">Work</a>
+        <a href="ventures.html">Ventures</a><a href="articles.html">Articles</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Ventures</h4>
+        <a href="ventures.html">Acquire Talent</a>
+        <a href="ventures.html">TA Exchange</a>
+        <a href="ventures.html">Your Platform</a>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/simonvalentine" target="_blank" rel="noopener">LinkedIn</a>        <a href="go.html">All Links →</a>
+        <a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/" target="_blank" rel="noopener">Newsletter</a>
+        <a href="mailto:contact@simonvalentine.com">Email</a>
+        <a href="tel:+41798364078">+41 79 836 4078</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="f-copy">© 2025 – Simon Valentine Limited – All Rights Reserved.</div>
+    <div class="f-legal">
+      <a href="https://simonvalentine.com/privacy-policy/" target="_blank">Privacy</a>
+      <a href="https://simonvalentine.com/terms-of-service/" target="_blank">Terms</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var btn = document.getElementById('nav-burger');
+  var ul  = document.querySelector('nav ul');
+  if(!btn || !ul) return;
+  btn.addEventListener('click', function(){
+    ul.classList.toggle('open');
+    btn.classList.toggle('is-open');
+  });
+  // close on link click
+  ul.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      ul.classList.remove('open');
+      btn.classList.remove('is-open');
+    });
+  });
+})();
+</script>
+</body>
+</html>
