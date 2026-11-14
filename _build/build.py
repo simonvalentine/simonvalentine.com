@@ -470,7 +470,7 @@ def build_work():
       <h2>Speaking and workshops</h2>
       <div class="prose"><p>Alongside client work I speak at events and run sessions for Talent Acquisition leaders, on topics from AI in recruitment to building a function that scales.</p><p>If you would like me to speak at your event, get in touch.</p></div>
     </div>
-    <figure>{picture('simon-binoculars', 'Simon Valentine looking through binoculars across Lake Geneva', cls='is-portrait')}</figure>
+    <figure>{picture('simon-speaking', 'Simon Valentine on stage in yellow shoes, speaking at an event')}</figure>
   </div>
 </section>
 
