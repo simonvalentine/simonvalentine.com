@@ -22,11 +22,11 @@ YEAR = 2026
 LINKEDIN = "https://www.linkedin.com/in/simonvalentine/"
 EMAIL = "contact@simonvalentine.com"
 NEWSLETTER = "https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/"
-TA_EXCHANGE = "https://ta-exchange.com/"
-YOUR_PLATFORM = "https://yourplatform.com/"
-ACQUIRE_TALENT = "https://acquiretalentpartners.com/"
+TA_EXCHANGE = "https://www.linkedin.com/company/taexchange"
+YOUR_PLATFORM = LINKEDIN
+ACQUIRE_TALENT = "https://www.linkedin.com/company/acquiretalentpartners/"
 PODCAST = "https://soundcloud.com/simonvalentine"
-LEADERSHIP_PROGRAM = "https://yourplatform.com/talent-acquisition-leadership-program/"
+LEADERSHIP_PROGRAM = LINKEDIN
 
 ICON_LINKEDIN = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>'
 ICON_MAIL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'
@@ -88,7 +88,7 @@ TEXT_FIXES = {
     "If are a Talent Acquisition Manager and are considering getting some coaching, being mentored or want to join a community of like-minded Talent Acquisition leaders apply to be a part of the TA Exchange.":
         'If you are a Talent Acquisition Manager and are considering getting some coaching, being mentored or want to join a community of like-minded Talent Acquisition leaders, apply to be a part of the <a href="' + TA_EXCHANGE + '">TA Exchange</a>.',
     "If you are interested to learn more, follow us at TA Exchange Linkedin Company Page or add your email via this link TA Exchange Website to be kept updated.":
-        'If you are interested to learn more, follow the <a href="https://www.linkedin.com/company/taexchange">TA Exchange LinkedIn page</a> or visit the <a href="' + TA_EXCHANGE + '">TA Exchange website</a> to be kept updated.',
+        'If you are interested to learn more, follow the <a href="' + TA_EXCHANGE + '">TA Exchange LinkedIn page</a> to be kept updated.',
 }
 
 
@@ -313,7 +313,7 @@ def build_home():
     <ul class="services">
       <li><h3>Advisory</h3><div><p>I identify opportunities for organisations to transform their Talent Acquisition function, and give leadership teams straight, practical counsel.</p></div></li>
       <li><h3>Consulting</h3><div><p>I provide solutions that improve your Talent Acquisition function, from diagnosing what is broken to building the processes that fix it.</p><a class="more" href="{{r}}work/">How we would work together</a></div></li>
-      <li><h3>Community</h3><div><p>I lead the TA Exchange, an international community of Talent Acquisition leaders who share what works and what doesn’t.</p><a class="more" href="{TA_EXCHANGE}">Visit the TA Exchange</a></div></li>
+      <li><h3>Community</h3><div><p>I lead the TA Exchange, an international community of Talent Acquisition leaders who share what works and what doesn’t.</p><a class="more" href="{TA_EXCHANGE}">The TA Exchange on LinkedIn</a></div></li>
     </ul>
   </div>
 </section>
@@ -462,7 +462,7 @@ def build_ventures():
       <div>
         <p class="tagline">Helping organisations make informed decisions when transforming their Talent Acquisition function.</p>
         <p>Practical, relevant and implementable strategies so your organisation can achieve its goals in acquiring the best talent.</p>
-        <div class="actions"><a class="btn btn-ghost" href="{ACQUIRE_TALENT}">Visit Acquire Talent</a></div>
+        <div class="actions"><a class="btn btn-ghost" href="{ACQUIRE_TALENT}">Acquire Talent on LinkedIn</a></div>
       </div>
     </article>
     <article class="venture">
@@ -470,7 +470,7 @@ def build_ventures():
       <div>
         <p class="tagline">Leading the way in Talent Acquisition.</p>
         <p>A private community for Talent Acquisition professionals to share, discuss and engage on the biggest challenges and opportunities facing the industry today.</p>
-        <div class="actions"><a class="btn btn-ghost" href="{TA_EXCHANGE}">Join the TA Exchange</a></div>
+        <div class="actions"><a class="btn btn-ghost" href="{TA_EXCHANGE}">TA Exchange on LinkedIn</a></div>
       </div>
     </article>
     <article class="venture">
@@ -478,7 +478,7 @@ def build_ventures():
       <div>
         <p class="tagline">Helping Talent Acquisition leaders reach the next level in their career.</p>
         <p>Whether you want to build your personal brand, grow your network or position yourself as a thought leader, Your Platform gives you the tools and strategy to get there, including the Talent Acquisition Leadership Program.</p>
-        <div class="actions"><a class="btn btn-ghost" href="{YOUR_PLATFORM}">Visit Your Platform</a></div>
+        <div class="actions"><a class="btn btn-ghost" href="{YOUR_PLATFORM}">Ask me about Your Platform</a></div>
       </div>
     </article>
   </div>
@@ -584,8 +584,8 @@ def build_go():
   <ul class="go-links">
     {link(NEWSLETTER, ICON_NEWS, 'Read the Talent Acquisition newsletter', 'On LinkedIn')}
     {link(PODCAST, ICON_MIC, 'Listen to the podcast', 'Your Career With Purpose, on SoundCloud')}
-    {link(TA_EXCHANGE, ICON_PEOPLE, 'Join TA leaders at the TA Exchange', 'Private community for Talent Acquisition professionals')}
-    {link(LEADERSHIP_PROGRAM, ICON_STAR, 'Join the Talent Acquisition Leadership Program', 'Your Platform')}
+    {link(TA_EXCHANGE, ICON_PEOPLE, 'Join TA leaders at the TA Exchange', 'Private community for Talent Acquisition professionals, on LinkedIn')}
+    {link(LEADERSHIP_PROGRAM, ICON_STAR, 'Ask about the Talent Acquisition Leadership Program', 'Your Platform. Message me on LinkedIn')}
   </ul>
   <h2>This website</h2>
   <ul class="go-links">
