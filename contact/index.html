@@ -1,397 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Simon Valentine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f5f5;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #111111;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #111111;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #333333;
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                gap: 1rem;
-                padding: 2rem;
-                display: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        /* Page Content */
-        .page-hero {
-            background-color: #f5f5f5;
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 4rem 4rem;
-            margin-top: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-hero-content {
-            text-align: center;
-            max-width: 700px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: rgba(0, 0, 0, 0.5);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero h1 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            color: #111111;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .page-hero p {
-            font-size: 1.1rem;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.7;
-        }
-
-        /* Section wrapper */
-        .section {
-            position: relative;
-            padding: 6rem 4rem;
-            overflow: hidden;
-        }
-
-        .section-light {
-            background-color: #f5f5f5;
-        }
-
-        .section-dark {
-            background-color: #e8e8e8;
-        }
-
-        .section-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .contact-item {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .contact-label {
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-        }
-
-        .contact-value {
-            color: #111111;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-item a {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: #111111;
-        }
-
-        /* Locations */
-        .locations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .location-card {
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .location-emoji {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .location-name {
-            color: #111111;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .location-note {
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #e8e8e8;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 2rem 4rem;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        footer a:hover {
-            color: #111111;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .page-hero {
-                padding: 6rem 2rem 4rem;
-                min-height: auto;
-            }
-
-            .page-hero-content {
-                width: 100%;
-            }
-
-            .section {
-                padding: 4rem 2rem;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .locations-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Simon Valentine</title>
+<meta name="description" content="Contact Simon Valentine on LinkedIn or by email.">
+<link rel="canonical" href="https://simonvalentine.com/contact/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Simon Valentine">
+<meta property="og:description" content="Contact Simon Valentine on LinkedIn or by email.">
+<meta property="og:url" content="https://simonvalentine.com/contact/">
+<meta property="og:image" content="https://simonvalentine.com/assets/img/simon-lakefront.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14212b">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="../index.html" class="logo">SV</a>
-        <ul class="nav-links">
-            <li><a href="../about/index.html">About</a></li>
-            <li><a href="../work/index.html">Work</a></li>
-            <li><a href="../ventures/index.html">Ventures</a></li>
-            <li><a href="index.html">Contact</a></li>
-            <li><a href="../go/index.html">Links</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Simon Valentine, home"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../about/">About</a><a href="../work/">Work</a><a href="../ventures/">Ventures</a><a href="../articles/">Articles</a><a class="nav-cta" href="../contact/" aria-current="page">Get in touch</a>
     </nav>
+  </div>
+</header>
+<main id="main">
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="page-hero-content">
-            <p class="section-label">Get In Touch</p>
-            <h1>Let's work together.</h1>
-        </div>
-    </section>
+<section class="page-intro">
+  <div class="wrap">
+    <h1>Get in touch.</h1>
+    <p>Whether you want to transform your Talent Acquisition function, join a community of leaders or take your career further, I would like to hear from you.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="wrap contact-grid">
+    <div class="contact-card is-primary on-dark">
+      <h2>LinkedIn</h2>
+      <p>The quickest way to reach me. Send a message or a connection request.</p>
+      <a class="btn btn-primary" href="https://www.linkedin.com/in/simonvalentine/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Message me on LinkedIn</a>
+    </div>
+    <div class="contact-card">
+      <h2>Email</h2>
+      <p><a href="mailto:contact@simonvalentine.com">contact@simonvalentine.com</a></p>
+      <a class="btn btn-ghost" href="mailto:contact@simonvalentine.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+    </div>
+    <div class="contact-card">
+      <h2>Where I work</h2>
+      <ul class="places"><li>Switzerland</li><li>England</li><li>New Zealand</li></ul>
+      <p>Working with clients worldwide.</p>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap"><picture><source srcset="../assets/img/simon-lakefront.webp" type="image/webp"><img class="contact-photo" src="../assets/img/simon-lakefront.jpg" alt="Simon Valentine looking out over Lake Geneva" loading="lazy" decoding="async"></picture></div>
+</section>
 
-    <!-- Contact Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <div class="contact-container">
-                <!-- Email -->
-                <div class="contact-item">
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">
-                        <a href="mailto:contact@simonvalentine.com">contact@simonvalentine.com</a>
-                    </div>
-                </div>
-
-                <!-- Phone -->
-                <div class="contact-item">
-                    <div class="contact-label">Phone</div>
-                    <div class="contact-value">
-                        <a href="tel:+41798364078">+41 79 836 4078</a>
-                    </div>
-                </div>
-
-                <!-- LinkedIn -->
-                <div class="contact-item">
-                    <div class="contact-label">LinkedIn</div>
-                    <div class="contact-value">
-                        <a href="https://www.linkedin.com/in/simonvalentine" target="_blank">linkedin.com/in/simonvalentine</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Locations -->
-            <div class="locations-grid">
-                <div class="location-card">
-                    <div class="location-emoji">ð¨ð­</div>
-                    <div class="location-name">Switzerland</div>
-                    <div class="location-note">Based</div>
-                </div>
-                <div class="location-card">
-                    <div class="location-emoji">ð¬ð§</div>
-                    <div class="location-name">England</div>
-                    <div class="location-note">Working Globally</div>
-                </div>
-                <div class="location-card">
-                    <div class="location-emoji">ð³ð¿</div>
-                    <div class="location-name">New Zealand</div>
-                    <div class="location-note">Working Globally</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 &ndash; Simon Valentine Limited |
-            <a href="https://www.linkedin.com/in/simonvalentine">LinkedIn</a> |
-            <a href="#privacy">Privacy</a> |
-            <a href="#terms">Terms</a>
-        </p>
-    </footer>
-
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+      <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="../about/">About</a></li>
+        <li><a href="../work/">Work</a></li>
+        <li><a href="../articles/">Articles</a></li>
+        <li><a href="../contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ventures</h2>
+      <ul>
+        <li><a href="https://acquiretalentpartners.com/">Acquire Talent</a></li>
+        <li><a href="https://ta-exchange.com/">TA Exchange</a></li>
+        <li><a href="https://yourplatform.com/">Your Platform</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/simonvalentine/">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/">Newsletter</a></li>
+        <li><a href="mailto:contact@simonvalentine.com">Email</a></li>
+        <li><a href="../go/">All links</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Simon Valentine Limited</span>
+      <span><a href="../privacy-policy/">Privacy</a> &nbsp; <a href="../terms-of-service/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
 </body>
 </html>

@@ -1,764 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simon Valentine - Talent Acquisition Consultant & Advisor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f5f5;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #111111;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #111111;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #333333;
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                gap: 1rem;
-                padding: 2rem;
-                display: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        /* Hero Section */
-        .hero {
-            background-color: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8rem 4rem 4rem;
-            margin-top: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            color: #111111;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            font-weight: 700;
-        }
-
-        .rotating-word {
-            color: #111111;
-            font-weight: 900;
-            animation: rotate 8s infinite;
-        }
-
-        @keyframes rotate {
-            0%, 24% { content: 'Consultant'; opacity: 1; }
-            25%, 49% { content: 'Advisor'; opacity: 1; }
-            50%, 74% { content: 'Leader'; opacity: 1; }
-            75%, 99% { content: 'Investor'; opacity: 1; }
-        }
-
-        .hero-tagline {
-            font-size: 1.3rem;
-            color: rgba(0, 0, 0, 0.6);
-            margin-bottom: 2rem;
-            font-weight: 400;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            color: #111111;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            background: transparent;
-        }
-
-        .cta-button:hover {
-            background-color: #2a2c3a;
-            color: #f0f0f0;
-            border-color: #111111;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image img {
-            max-width: 90%;
-            height: auto;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        /* Section wrapper for alternating backgrounds */
-        .section {
-            position: relative;
-            padding: 6rem 4rem;
-            overflow: hidden;
-        }
-
-        .section-light {
-            background-color: #f5f5f5;
-        }
-
-        .section-dark {
-            background-color: #e8e8e8;
-        }
-
-        /* Section heading */
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: rgba(0, 0, 0, 0.5);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section h2 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            color: #111111;
-            margin-bottom: 3rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        /* Ghost watermark text */
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            font-size: clamp(80px, 15vw, 180px);
-            font-weight: 900;
-            color: rgba(0, 0, 0, 0.04);
-            transform: translateY(-50%);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .services .section::before {
-            content: 'about';
-        }
-
-        .work-section .section::before {
-            content: 'work';
-        }
-
-        .ventures-section .section::before {
-            content: 'ventures';
-        }
-
-        .about-section .section::before {
-            content: 'expertise';
-        }
-
-        .section-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .service-card {
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            background: rgba(0, 0, 0, 0.08);
-            border-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .service-card h3 {
-            color: #111111;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .service-card p {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            color: #111111;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Quotes Section */
-        .quotes-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .quote-card {
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.03);
-            border-left: 3px solid rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
-        .quote-text {
-            color: rgba(0, 0, 0, 0.7);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        .quote-author {
-            color: #111111;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .quote-title {
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-
-        /* Testimonials Section */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .testimonial-card {
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .testimonial-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            object-fit: cover;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .testimonial-text {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonial-name {
-            color: #111111;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .testimonial-title {
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stars {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 0.9rem;
-        }
-
-        /* Articles Section */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .article-card {
-            background: rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .article-card:hover {
-            border-color: rgba(0, 0, 0, 0.2);
-            background: rgba(0, 0, 0, 0.03);
-        }
-
-        .article-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .article-content {
-            padding: 1.5rem;
-        }
-
-        .article-date {
-            color: rgba(0, 0, 0, 0.4);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .article-title {
-            color: #111111;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-        }
-
-        .article-link {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-        }
-
-        .article-link:hover {
-            color: #111111;
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .newsletter-text {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .newsletter-button {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            border: 1px solid rgba(0, 0, 0, 0.4);
-            color: #111111;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            background: transparent;
-        }
-
-        .newsletter-button:hover {
-            background-color: #2a2c3a;
-            color: #000000;
-            border-color: #111111;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #e8e8e8;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 2rem 4rem;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        footer a:hover {
-            color: #111111;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                padding: 6rem 2rem 4rem;
-                min-height: auto;
-            }
-
-            .hero-content {
-                margin-bottom: 2rem;
-                width: 100%;
-            }
-
-            .hero-image {
-                width: 100%;
-            }
-
-            .hero-image img {
-                max-width: 100%;
-            }
-
-            .section {
-                padding: 4rem 2rem;
-            }
-
-            .services-grid,
-            .testimonials-grid,
-            .articles-grid,
-            .quotes-section {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simon Valentine | Talent Acquisition advisor and consultant</title>
+<meta name="description" content="Simon Valentine helps organisations transform their Talent Acquisition function through advisory, consulting and the TA Exchange community.">
+<link rel="canonical" href="https://simonvalentine.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Simon Valentine | Talent Acquisition advisor and consultant">
+<meta property="og:description" content="Simon Valentine helps organisations transform their Talent Acquisition function through advisory, consulting and the TA Exchange community.">
+<meta property="og:url" content="https://simonvalentine.com/">
+<meta property="og:image" content="https://simonvalentine.com/assets/img/simon-lakefront.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14212b">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="logo">SV</a>
-        <ul class="nav-links">
-            <li><a href="about/index.html">About</a></li>
-            <li><a href="work/index.html">Work</a></li>
-            <li><a href="ventures/index.html">Ventures</a></li>
-            <li><a href="contact/index.html">Contact</a></li>
-            <li><a href="go/index.html">Links</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Simon Valentine, home"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="about/">About</a><a href="work/">Work</a><a href="ventures/">Ventures</a><a href="articles/">Articles</a><a class="nav-cta" href="contact/">Get in touch</a>
     </nav>
+  </div>
+</header>
+<main id="main">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>I'm a <span class="rotating-word">Consultant</span></h1>
-            <p class="hero-tagline">There's more to hiring than meets the eye.</p>
-            <a href="about/index.html" class="cta-button">My Story</a>
-        </div>
-        <div class="hero-image">
-            <img src="https://simonvalentine.com/wp-content/uploads/2022/09/Simon-Valentine-2.jpg" alt="Simon Valentine">
-        </div>
-    </section>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>There’s more to hiring than meets the eye.</h1>
+      <p class="hero-lede">I help organisations transform how they find and hire talent, through advisory, hands-on consulting and a global community of Talent Acquisition leaders.</p>
+      <div class="actions">
+  <a class="btn btn-primary" href="https://www.linkedin.com/in/simonvalentine/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Message me on LinkedIn</a>
+  <a class="btn btn-ghost" href="mailto:contact@simonvalentine.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+</div>
+      <p class="hero-meta">Consultant, advisor, leader and investor. Switzerland, England and New Zealand.</p>
+    </div>
+    <figure class="hero-photo"><picture><source srcset="assets/img/simon-bench-portrait.webp" type="image/webp"><img src="assets/img/simon-bench-portrait.jpg" alt="Simon Valentine sitting on a bench by Lake Geneva" fetchpriority="high" decoding="async"></picture></figure>
+  </div>
+</section>
 
-    <!-- Services Section -->
-    <section class="section section-dark services">
-        <div class="section-content">
-            <p class="section-label">What I Do</p>
-            <h2>Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>Advisory</h3>
-                    <p>Identify opportunities for organisations to transform their Talent Acquisition Function.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Consulting</h3>
-                    <p>Provide solutions for companies to improve their Talent Acquisition Function.</p>
-                </div>
-                <div class="service-card">
-                    <h3>Community</h3>
-                    <p>Lead an international community of Global Talent Acquisition Leaders.</p>
-                </div>
-            </div>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What I do</h2>
+      <p>Twenty years inside Talent Acquisition teams, from delivery to global leadership, now put to work for the organisations and people I partner with.</p>
+    </div>
+    <ul class="services">
+      <li><h3>Advisory</h3><div><p>I identify opportunities for organisations to transform their Talent Acquisition function, and give leadership teams straight, practical counsel.</p></div></li>
+      <li><h3>Consulting</h3><div><p>I provide solutions that improve your Talent Acquisition function, from diagnosing what is broken to building the processes that fix it.</p><a class="more" href="work/">How we would work together</a></div></li>
+      <li><h3>Community</h3><div><p>I lead the TA Exchange, an international community of Talent Acquisition leaders who share what works and what doesn’t.</p><a class="more" href="https://ta-exchange.com/">Visit the TA Exchange</a></div></li>
+    </ul>
+  </div>
+</section>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">40+</div>
-                    <div class="stat-label">Geographies</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">40+</div>
-                    <div class="stat-label">Industries</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">20+</div>
-                    <div class="stat-label">Years</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section band-dark on-dark">
+  <div class="wrap">
+    <div class="figures">
+      <div><strong>20+</strong><span>years in Talent Acquisition</span></div>
+      <div><strong>40+</strong><span>industries and geographies</span></div>
+      <div><strong>3</strong><span>continents I call home</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Quotes Section -->
-    <section class="section section-light">
-        <div class="section-content">
-            <h2 style="opacity: 0; height: 0; margin: 0;"></h2>
-            <div class="quotes-section">
-                <div class="quote-card">
-                    <p class="quote-text">"The secret to a successful hire is this: look for the people who want to change the world"</p>
-                    <div class="quote-author">Marc Benioff</div>
-                    <div class="quote-title">CEO, Salesforce</div>
-                </div>
-                <div class="quote-card">
-                    <p class="quote-text">"The competition to hire the best will increase in the years ahead. Companies that give extra flexibility to their employees will have the edge in this area"</p>
-                    <div class="quote-author">Bill Gates</div>
-                    <div class="quote-title">Founder, Microsoft</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>What people say</h2><p>Recommendations from people I have worked alongside. <a href="https://www.linkedin.com/in/simonvalentine/details/recommendations/">See more on LinkedIn</a>.</p></div>
+    <div class="quotes"><figure class="quote"><blockquote><p>Simon always demonstrated innovative ways to approach hiring, be it new tech or resourcing strategies.</p></blockquote><figcaption>Anish Lalchandani<span>HR Leader</span></figcaption></figure><figure class="quote"><blockquote><p>Simon is one of the hardest working people I have had the pleasure to work with. Very professional and dedicated.</p></blockquote><figcaption>Dawn Pellar<span>Global Leader</span></figcaption></figure><figure class="quote"><blockquote><p>Simon demonstrated professionalism, innovativeness and work ethic all but assure successful programs.</p></blockquote><figcaption>Tom Young<span>Director</span></figcaption></figure></div>
+  </div>
+</section>
 
-    <!-- Testimonials Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <p class="section-label">What People Say</p>
-            <h2>Testimonials</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2022/09/dawn.jpg" alt="Dawn Pellar" class="testimonial-avatar">
-                    <p class="testimonial-text">Simon is one of the hardest working people I have had the pleasure to work with. Very professional and dedicated.</p>
-                    <div class="testimonial-name">Dawn Pellar</div>
-                    <div class="testimonial-title">Global Leader</div>
-                    <div class="stars">âââââ</div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2022/09/tom.jpg" alt="Tom Young" class="testimonial-avatar">
-                    <p class="testimonial-text">Simon demonstrated professionalism, innovativeness and work ethic all but assure successful programs.</p>
-                    <div class="testimonial-name">Tom Young</div>
-                    <div class="testimonial-title">Director</div>
-                    <div class="stars">âââââ</div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2022/09/anish.jpg" alt="Anish Lalchandani" class="testimonial-avatar">
-                    <p class="testimonial-text">Simon always demonstrated innovative ways to approach hiring, be it new tech or resourcing strategies.</p>
-                    <div class="testimonial-name">Anish Lalchandani</div>
-                    <div class="testimonial-title">HR Leader</div>
-                    <div class="stars">âââââ</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section">
+  <div class="wrap"><p class="clients-label">Some of the employers, clients and partners I have worked with</p><ul class="clients"><li>Manpower</li><li>Costain</li><li>Standard Chartered</li><li>Cisco</li><li>Uber</li></ul></div>
+</section>
 
-    <!-- Articles Section -->
-    <section class="section section-light">
-        <div class="section-content">
-            <p class="section-label">Latest Content</p>
-            <h2>Articles</h2>
-            <div class="articles-grid">
-                <div class="article-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2023/06/pexels-thirdman-5981928-scaled.jpg" alt="Article" class="article-image">
-                    <div class="article-content">
-                        <div class="article-date">June 27, 2023</div>
-                        <div class="article-title">The Importance of Continuous Learning and Upskilling for Aspiring Talent Acquisition Leaders</div>
-                        <a href="https://simonvalentine.com/the-importance-of-continuous-learning-and-upskilling-for-aspiring-talent-acquisition-leaders/" class="article-link">Read More â</a>
-                    </div>
-                </div>
-                <div class="article-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2023/05/pexels-tara-winstead-8386440-scaled.jpg" alt="Article" class="article-image">
-                    <div class="article-content">
-                        <div class="article-date">May 16, 2023</div>
-                        <div class="article-title">Impact of AI on Talent Acquisition: What you need to know.</div>
-                        <a href="https://simonvalentine.com/impact-of-ai-on-talent-acquisition-what-you-need-to-know/" class="article-link">Read More â</a>
-                    </div>
-                </div>
-                <div class="article-card">
-                    <img src="https://simonvalentine.com/wp-content/uploads/2022/01/pexels-fauxels-3183183-scaled.jpg" alt="Article" class="article-image">
-                    <div class="article-content">
-                        <div class="article-date">January 5, 2022</div>
-                        <div class="article-title">One Talent Acquisition community you need to be a part of in 2022.</div>
-                        <a href="https://simonvalentine.com/one-talent-acquisition-community-you-need-to-be-a-part-of-in-2022/" class="article-link">Read More â</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section band">
+  <div class="wrap">
+    <div class="section-head"><h2>Writing</h2><p>Thoughts on Talent Acquisition and the future of hiring. New pieces go out first in my <a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/">LinkedIn newsletter</a>.</p></div>
+    <ul class="article-list"><li><a href="the-importance-of-continuous-learning-and-upskilling-for-aspiring-talent-acquisition-leaders/"><time datetime="2023-06-27">27 June 2023</time><h3>The Importance of Continuous Learning and Upskilling for Aspiring Talent Acquisition Leaders</h3></a></li><li><a href="impact-of-ai-on-talent-acquisition-what-you-need-to-know/"><time datetime="2023-05-16">16 May 2023</time><h3>Impact of AI on Talent Acquisition: What you need to know</h3></a></li><li><a href="one-talent-acquisition-community-you-need-to-be-a-part-of-in-2022/"><time datetime="2022-01-05">5 January 2022</time><h3>One Talent Acquisition community you need to be a part of in 2022</h3></a></li></ul>
+  </div>
+</section>
 
-    <!-- Newsletter Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <div class="newsletter-section">
-                <p class="newsletter-text">Subscribe to the Talent Acquisition LinkedIn Newsletter and stay ahead of the industry.</p>
-                <a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/" class="newsletter-button">Subscribe</a>
-            </div>
-        </div>
-    </section>
+<section class="section band-dark on-dark closing">
+  <div class="wrap">
+    <h2>Let’s talk about your hiring.</h2>
+    <p>Tell me what you are working on. LinkedIn is the quickest way to reach me, or send an email.</p>
+    <div class="actions">
+  <a class="btn btn-primary" href="https://www.linkedin.com/in/simonvalentine/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Message me on LinkedIn</a>
+  <a class="btn btn-ghost" href="mailto:contact@simonvalentine.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+</div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 &ndash; Simon Valentine Limited |
-            <a href="https://www.linkedin.com/in/simonvalentine">LinkedIn</a> |
-            <a href="#privacy">Privacy</a> |
-            <a href="#terms">Terms</a>
-        </p>
-    </footer>
-
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Rotating word effect
-        const words = ['Consultant', 'Advisor', 'Leader', 'Investor'];
-        let currentIndex = 0;
-
-        function rotateWord() {
-            const rotatingWord = document.querySelector('.rotating-word');
-            rotatingWord.textContent = words[currentIndex];
-            currentIndex = (currentIndex + 1) % words.length;
-        }
-
-        setInterval(rotateWord, 2000);
-    </script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+      <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="about/">About</a></li>
+        <li><a href="work/">Work</a></li>
+        <li><a href="articles/">Articles</a></li>
+        <li><a href="contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ventures</h2>
+      <ul>
+        <li><a href="https://acquiretalentpartners.com/">Acquire Talent</a></li>
+        <li><a href="https://ta-exchange.com/">TA Exchange</a></li>
+        <li><a href="https://yourplatform.com/">Your Platform</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/simonvalentine/">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/">Newsletter</a></li>
+        <li><a href="mailto:contact@simonvalentine.com">Email</a></li>
+        <li><a href="go/">All links</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Simon Valentine Limited</span>
+      <span><a href="privacy-policy/">Privacy</a> &nbsp; <a href="terms-of-service/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>

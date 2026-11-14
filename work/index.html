@@ -1,383 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work - Talent Acquisition Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f5f5;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #111111;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #111111;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #333333;
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                gap: 1rem;
-                padding: 2rem;
-                display: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        /* Page Content */
-        .page-hero {
-            background-color: #f5f5f5;
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 4rem 4rem;
-            margin-top: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-hero-content {
-            text-align: center;
-            max-width: 700px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: rgba(0, 0, 0, 0.5);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero h1 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            color: #111111;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .page-hero p {
-            font-size: 1.1rem;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.7;
-        }
-
-        /* Section wrapper */
-        .section {
-            position: relative;
-            padding: 6rem 4rem;
-            overflow: hidden;
-        }
-
-        .section-light {
-            background-color: #f5f5f5;
-        }
-
-        .section-dark {
-            background-color: #e8e8e8;
-        }
-
-        .section-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Ghost watermark */
-        .section::before {
-            content: 'work';
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            font-size: clamp(80px, 15vw, 180px);
-            font-weight: 900;
-            color: rgba(0, 0, 0, 0.04);
-            transform: translateY(-50%);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-        }
-
-        .service-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .service-item:nth-child(even) {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .service-item:nth-child(even) .service-content {
-            order: 2;
-        }
-
-        .service-item:nth-child(even) .service-image {
-            order: 1;
-        }
-
-        .service-content h3 {
-            color: #111111;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .service-content p {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-
-        .service-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #e8e8e8;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 2rem 4rem;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        footer a:hover {
-            color: #111111;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .page-hero {
-                padding: 6rem 2rem 4rem;
-                min-height: auto;
-            }
-
-            .page-hero-content {
-                width: 100%;
-            }
-
-            .section {
-                padding: 4rem 2rem;
-            }
-
-            .service-item {
-                grid-template-columns: 1fr;
-            }
-
-            .service-item:nth-child(even) .service-content {
-                order: 1;
-            }
-
-            .service-item:nth-child(even) .service-image {
-                order: 2;
-            }
-
-            .service-image img {
-                height: 250px;
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work with me | Simon Valentine</title>
+<meta name="description" content="Advisory, consulting and community: how Simon Valentine helps organisations improve their Talent Acquisition function.">
+<link rel="canonical" href="https://simonvalentine.com/work/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work with me | Simon Valentine">
+<meta property="og:description" content="Advisory, consulting and community: how Simon Valentine helps organisations improve their Talent Acquisition function.">
+<meta property="og:url" content="https://simonvalentine.com/work/">
+<meta property="og:image" content="https://simonvalentine.com/assets/img/simon-speaking.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14212b">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="../index.html" class="logo">SV</a>
-        <ul class="nav-links">
-            <li><a href="../about/index.html">About</a></li>
-            <li><a href="index.html">Work</a></li>
-            <li><a href="../ventures/index.html">Ventures</a></li>
-            <li><a href="../contact/index.html">Contact</a></li>
-            <li><a href="../go/index.html">Links</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Simon Valentine, home"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../about/">About</a><a href="../work/" aria-current="page">Work</a><a href="../ventures/">Ventures</a><a href="../articles/">Articles</a><a class="nav-cta" href="../contact/">Get in touch</a>
     </nav>
+  </div>
+</header>
+<main id="main">
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="page-hero-content">
-            <p class="section-label">Talent Acquisition</p>
-            <h1>How you can work with me.</h1>
-        </div>
-    </section>
+<section class="page-intro">
+  <div class="wrap">
+    <h1>Better hiring starts with the right function behind it.</h1>
+    <p>Acquiring the right talent is key to a company’s success. Here are the ways I can help yours.</p>
+  </div>
+</section>
 
-    <!-- Services Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <div class="services-grid">
-                <!-- Advisory -->
-                <div class="service-item">
-                    <div class="service-content">
-                        <h3>Advisory</h3>
-                        <p>Identify opportunities for organisations to transform their Talent Acquisition Function.</p>
-                    </div>
-                    <div class="service-image">
-                        <img src="https://simonvalentine.com/wp-content/uploads/2022/09/pexels-pixabay-417142-scaled.jpg" alt="Advisory">
-                    </div>
-                </div>
+<section class="section">
+  <div class="wrap">
+    <ul class="services">
+      <li><h3>Advisory</h3><div><p>Strategic counsel for leadership teams navigating talent complexity. I identify where your Talent Acquisition function can transform and help you decide what to do first.</p></div></li>
+      <li><h3>Consulting</h3><div><p>Hands-on transformation, from diagnosing what is broken to building the systems, processes and team capability that fix it for good.</p></div></li>
+      <li><h3>Community</h3><div><p>Through the TA Exchange, Talent Acquisition leaders get a curated peer network to share insights and navigate the future of hiring together.</p><a class="more" href="../ventures/">More about my ventures</a></div></li>
+    </ul>
+  </div>
+</section>
 
-                <!-- Consulting -->
-                <div class="service-item">
-                    <div class="service-content">
-                        <h3>Consulting</h3>
-                        <p>Provide solutions for companies to improve their Talent Acquisition Function.</p>
-                    </div>
-                    <div class="service-image">
-                        <img src="https://simonvalentine.com/wp-content/uploads/2022/09/pexels-pixabay-417142-scaled.jpg" alt="Consulting">
-                    </div>
-                </div>
+<section class="section band-dark on-dark">
+  <div class="wrap">
+    <div class="section-head"><h2>How it works</h2><p>A simple process, shaped around your organisation.</p></div>
+    <ol class="steps">
+      <li><h3>Conversation</h3><p>We talk about your goals and challenges. No commitment required.</p></li>
+      <li><h3>Diagnosis</h3><p>I review your current Talent Acquisition function and find where the real opportunities are.</p></li>
+      <li><h3>Strategy</h3><p>Together we build a practical roadmap tailored to your goals.</p></li>
+      <li><h3>Delivery</h3><p>I work alongside your team so the strategy is delivered and the results show.</p></li>
+    </ol>
+  </div>
+</section>
 
-                <!-- Community -->
-                <div class="service-item">
-                    <div class="service-content">
-                        <h3>Community</h3>
-                        <p>Lead an international community of Global Talent Acquisition Leaders.</p>
-                    </div>
-                    <div class="service-image">
-                        <img src="https://simonvalentine.com/wp-content/uploads/2022/09/pexels-pixabay-417142-scaled.jpg" alt="Community">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section">
+  <div class="wrap split">
+    <div>
+      <h2>On stage and in the room</h2>
+      <div class="prose"><p>Alongside client work I speak at events and run sessions for Talent Acquisition leaders, on topics from AI in recruitment to building a function that scales.</p><p>If you would like me to speak at your event, get in touch.</p></div>
+    </div>
+    <figure><picture><source srcset="../assets/img/simon-speaking.webp" type="image/webp"><img src="../assets/img/simon-speaking.jpg" alt="Simon Valentine speaking on stage at an event" loading="lazy" decoding="async"></picture></figure>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 &ndash; Simon Valentine Limited |
-            <a href="https://www.linkedin.com/in/simonvalentine">LinkedIn</a> |
-            <a href="#privacy">Privacy</a> |
-            <a href="#terms">Terms</a>
-        </p>
-    </footer>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>What clients say</h2></div>
+    <div class="quotes"><figure class="quote"><blockquote><p>Simon always demonstrated innovative ways to approach hiring, be it new tech or resourcing strategies.</p></blockquote><figcaption>Anish Lalchandani<span>HR Leader</span></figcaption></figure><figure class="quote"><blockquote><p>Simon is one of the hardest working people I have had the pleasure to work with. Very professional and dedicated.</p></blockquote><figcaption>Dawn Pellar<span>Global Leader</span></figcaption></figure><figure class="quote"><blockquote><p>Simon demonstrated professionalism, innovativeness and work ethic all but assure successful programs.</p></blockquote><figcaption>Tom Young<span>Director</span></figcaption></figure></div>
+  </div>
+</section>
 
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+<section class="section band-dark on-dark closing">
+  <div class="wrap">
+    <h2>Ready to transform your Talent Acquisition?</h2>
+    <p>Start with a conversation about your goals.</p>
+    <div class="actions">
+  <a class="btn btn-primary" href="https://www.linkedin.com/in/simonvalentine/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Message me on LinkedIn</a>
+  <a class="btn btn-ghost" href="mailto:contact@simonvalentine.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+</div>
+  </div>
+</section>
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+      <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="../about/">About</a></li>
+        <li><a href="../work/">Work</a></li>
+        <li><a href="../articles/">Articles</a></li>
+        <li><a href="../contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ventures</h2>
+      <ul>
+        <li><a href="https://acquiretalentpartners.com/">Acquire Talent</a></li>
+        <li><a href="https://ta-exchange.com/">TA Exchange</a></li>
+        <li><a href="https://yourplatform.com/">Your Platform</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/simonvalentine/">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/">Newsletter</a></li>
+        <li><a href="mailto:contact@simonvalentine.com">Email</a></li>
+        <li><a href="../go/">All links</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Simon Valentine Limited</span>
+      <span><a href="../privacy-policy/">Privacy</a> &nbsp; <a href="../terms-of-service/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
 </body>
 </html>

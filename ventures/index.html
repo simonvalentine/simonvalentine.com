@@ -1,359 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventures - Simon Valentine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f5f5;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #111111;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(0, 0, 0, 0.6);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #111111;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: #333333;
-            margin: 5px 0;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                flex-direction: column;
-                gap: 1rem;
-                padding: 2rem;
-                display: none;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-
-        /* Page Content */
-        .page-hero {
-            background-color: #f5f5f5;
-            min-height: 50vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 4rem 4rem;
-            margin-top: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .page-hero-content {
-            text-align: center;
-            max-width: 700px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: rgba(0, 0, 0, 0.5);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero h1 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            color: #111111;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .page-hero p {
-            font-size: 1.1rem;
-            color: rgba(0, 0, 0, 0.6);
-            line-height: 1.7;
-        }
-
-        /* Section wrapper */
-        .section {
-            position: relative;
-            padding: 6rem 4rem;
-            overflow: hidden;
-        }
-
-        .section-light {
-            background-color: #f5f5f5;
-        }
-
-        .section-dark {
-            background-color: #e8e8e8;
-        }
-
-        .section-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Ghost watermark */
-        .section::before {
-            content: 'ventures';
-            position: absolute;
-            top: 50%;
-            left: 5%;
-            font-size: clamp(80px, 15vw, 180px);
-            font-weight: 900;
-            color: rgba(0, 0, 0, 0.04);
-            transform: translateY(-50%);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Ventures Grid */
-        .ventures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .venture-card {
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .venture-card:hover {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .venture-card h3 {
-            color: #111111;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .venture-card p {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .venture-link {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .venture-link:hover {
-            color: #111111;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #e8e8e8;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 2rem 4rem;
-            text-align: center;
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            margin: 0 0.5rem;
-        }
-
-        footer a:hover {
-            color: #111111;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .page-hero {
-                padding: 6rem 2rem 4rem;
-                min-height: auto;
-            }
-
-            .page-hero-content {
-                width: 100%;
-            }
-
-            .section {
-                padding: 4rem 2rem;
-            }
-
-            .ventures-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventures | Simon Valentine</title>
+<meta name="description" content="Acquire Talent, TA Exchange and Your Platform: Simon Valentine&#x27;s ventures in Talent Acquisition.">
+<link rel="canonical" href="https://simonvalentine.com/ventures/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ventures | Simon Valentine">
+<meta property="og:description" content="Acquire Talent, TA Exchange and Your Platform: Simon Valentine&#x27;s ventures in Talent Acquisition.">
+<meta property="og:url" content="https://simonvalentine.com/ventures/">
+<meta property="og:image" content="https://simonvalentine.com/assets/img/simon-lakefront.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14212b">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="../index.html" class="logo">SV</a>
-        <ul class="nav-links">
-            <li><a href="../about/index.html">About</a></li>
-            <li><a href="../work/index.html">Work</a></li>
-            <li><a href="index.html">Ventures</a></li>
-            <li><a href="../contact/index.html">Contact</a></li>
-            <li><a href="../go/index.html">Links</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Simon Valentine, home"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="../about/">About</a><a href="../work/">Work</a><a href="../ventures/" aria-current="page">Ventures</a><a href="../articles/">Articles</a><a class="nav-cta" href="../contact/">Get in touch</a>
     </nav>
+  </div>
+</header>
+<main id="main">
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-        <div class="page-hero-content">
-            <p class="section-label">Ventures</p>
-            <h1>Companies, communities and causes.</h1>
-        </div>
-    </section>
+<section class="page-intro">
+  <div class="wrap">
+    <h1>Building the future of Talent Acquisition.</h1>
+    <p>Three ventures, each tackling a different part of how organisations and Talent Acquisition leaders grow.</p>
+  </div>
+</section>
 
-    <!-- Ventures Section -->
-    <section class="section section-dark">
-        <div class="section-content">
-            <div class="ventures-grid">
-                <!-- Acquire Talent -->
-                <div class="venture-card">
-                    <h3>Acquire Talent</h3>
-                    <p>I enable organisations to make an informed decision when transforming their Talent Acquisition Function.</p>
-                    <a href="https://acquiretalentpartners.com" class="venture-link" target="_blank">Visit Acquire Talent â</a>
-                </div>
+<section class="section">
+  <div class="wrap">
+    <article class="venture">
+      <div><h2>Acquire Talent</h2><p class="kind">Advisory and consulting</p></div>
+      <div>
+        <p class="tagline">Helping organisations make informed decisions when transforming their Talent Acquisition function.</p>
+        <p>Practical, relevant and implementable strategies so your organisation can achieve its goals in acquiring the best talent.</p>
+        <div class="actions"><a class="btn btn-ghost" href="https://acquiretalentpartners.com/">Visit Acquire Talent</a></div>
+      </div>
+    </article>
+    <article class="venture">
+      <div><h2>TA Exchange</h2><p class="kind">Community</p></div>
+      <div>
+        <p class="tagline">Leading the way in Talent Acquisition.</p>
+        <p>A private community for Talent Acquisition professionals to share, discuss and engage on the biggest challenges and opportunities facing the industry today.</p>
+        <div class="actions"><a class="btn btn-ghost" href="https://ta-exchange.com/">Join the TA Exchange</a></div>
+      </div>
+    </article>
+    <article class="venture">
+      <div><h2>Your Platform</h2><p class="kind">Careers and personal brand</p></div>
+      <div>
+        <p class="tagline">Helping Talent Acquisition leaders reach the next level in their career.</p>
+        <p>Whether you want to build your personal brand, grow your network or position yourself as a thought leader, Your Platform gives you the tools and strategy to get there, including the Talent Acquisition Leadership Program.</p>
+        <div class="actions"><a class="btn btn-ghost" href="https://yourplatform.com/">Visit Your Platform</a></div>
+      </div>
+    </article>
+  </div>
+</section>
 
-                <!-- TA Exchange -->
-                <div class="venture-card">
-                    <h3>TA Exchange</h3>
-                    <p>Leading the way in Talent Acquisition. A private community for talent acquisition professionals.</p>
-                    <a href="https://ta-exchange.com" class="venture-link" target="_blank">Visit TA Exchange â</a>
-                </div>
+<section class="section band-dark on-dark closing">
+  <div class="wrap">
+    <h2>Interested in one of these?</h2>
+    <p>Let’s talk about how we could work together.</p>
+    <div class="actions">
+  <a class="btn btn-primary" href="https://www.linkedin.com/in/simonvalentine/"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>Message me on LinkedIn</a>
+  <a class="btn btn-ghost" href="mailto:contact@simonvalentine.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email me</a>
+</div>
+  </div>
+</section>
 
-                <!-- Your Platform -->
-                <div class="venture-card">
-                    <h3>Your Platform</h3>
-                    <p>Enabling Talent Acquisition Leaders to reach that next level in their career.</p>
-                    <a href="#" class="venture-link">Learn More â</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 &ndash; Simon Valentine Limited |
-            <a href="https://www.linkedin.com/in/simonvalentine">LinkedIn</a> |
-            <a href="#privacy">Privacy</a> |
-            <a href="#terms">Terms</a>
-        </p>
-    </footer>
-
-    <script>
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+      <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        <li><a href="../about/">About</a></li>
+        <li><a href="../work/">Work</a></li>
+        <li><a href="../articles/">Articles</a></li>
+        <li><a href="../contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Ventures</h2>
+      <ul>
+        <li><a href="https://acquiretalentpartners.com/">Acquire Talent</a></li>
+        <li><a href="https://ta-exchange.com/">TA Exchange</a></li>
+        <li><a href="https://yourplatform.com/">Your Platform</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Connect</h2>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/simonvalentine/">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/newsletters/talent-acquisition-6884431755651145728/">Newsletter</a></li>
+        <li><a href="mailto:contact@simonvalentine.com">Email</a></li>
+        <li><a href="../go/">All links</a></li>
+      </ul>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Simon Valentine Limited</span>
+      <span><a href="../privacy-policy/">Privacy</a> &nbsp; <a href="../terms-of-service/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
 </body>
 </html>
