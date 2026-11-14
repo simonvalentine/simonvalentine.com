@@ -197,7 +197,7 @@ def footer(depth):
 </footer>"""
 
 
-def page(path, title, description, body, current=None, chrome=True, og_image="simon-lakefront.jpg"):
+def page(path, title, description, body, current=None, chrome=True, og_image="simon-leather-closeup.jpg"):
     """Write one page. `path` is the output directory relative to the root ('' for home)."""
     depth = 0 if path in ("", "404.html") else path.strip("/").count("/") + 1
     r = rel(depth)
@@ -300,15 +300,7 @@ def build_home():
       {contact_buttons()}
       <p class="hero-meta">Consultant, advisor, leader and investor. Switzerland, England and New Zealand.</p>
     </div>
-    <figure class="hero-photo">
-      <div class="slides" aria-label="Photos of Simon Valentine">
-        {picture('simon-navy-coat', 'Simon Valentine in a navy coat, arms folded, against a stone wall', eager=True)}
-        {picture('simon-leather-jacket', 'Simon Valentine in a black leather jacket in front of autumn vines')}
-        {picture('simon-blazer', 'Simon Valentine in a light blue blazer')}
-        {picture('simon-bench-portrait', 'Simon Valentine sitting on a bench by Lake Geneva')}
-      </div>
-      <button class="slides-toggle" type="button" aria-pressed="false">Pause photos</button>
-    </figure>
+    <figure class="hero-photo">{picture('simon-leather-closeup', 'Close-up portrait of Simon Valentine in a black leather jacket', eager=True)}</figure>
   </div>
 </section>
 
@@ -327,10 +319,13 @@ def build_home():
 </section>
 
 <section class="section">
-  <div class="wrap gallery">
-    {picture('simon-old-town', 'Simon Valentine walking through an old town street')}
-    {picture('simon-binoculars', 'Simon Valentine looking through binoculars by Lake Geneva')}
-    {picture('simon-lake-rail', 'Simon Valentine leaning on a railing by the lake')}
+  <div class="wrap split">
+    <figure>{picture('simon-lake-rail', 'Simon Valentine leaning on a railing by Lake Geneva')}</figure>
+    <div>
+      <h2>From rural New Zealand to global Talent Acquisition</h2>
+      <div class="prose"><p>I grew up one of seven children in small-town New Zealand and walked into recruitment straight out of university. Twenty years on, the work has taken me around the world, and today I am based in Switzerland.</p></div>
+      <a class="more" href="{{r}}about/">Read my story</a>
+    </div>
   </div>
 </section>
 
@@ -383,7 +378,7 @@ def build_about():
 
 <section class="section">
   <div class="wrap split">
-    <figure>{picture('simon-lake-bench', 'Simon Valentine on a lakeside bench with the Alps behind')}</figure>
+    <figure>{picture('simon-old-town', 'Simon Valentine walking through an old town street', cls='is-portrait')}</figure>
     <div>
       <ol class="timeline">
         <li><h3>Growing up</h3><p>I grew up in rural New Zealand, one of seven children of two hard-working parents. We lived in a number of small towns, my parents often worked two jobs, and a lot of my life lessons came from my brothers and sisters.</p></li>
@@ -392,6 +387,10 @@ def build_about():
       </ol>
     </div>
   </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">{picture('simon-navy-closeup', 'Simon Valentine smiling, in a navy coat and camel roll-neck', cls='wide-photo')}</div>
 </section>
 
 <section class="section band">
@@ -418,6 +417,9 @@ def build_work():
     <h1>Better hiring starts with the right function behind it.</h1>
     <p>Acquiring the right talent is key to a company’s success. Here are the ways I can help yours.</p>
   </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="wrap">{picture('simon-lake-bench', 'Simon Valentine on a lakeside bench with the Alps behind', cls='wide-photo')}</div>
 </section>
 
 <section class="section">
@@ -448,7 +450,7 @@ def build_work():
       <h2>Speaking and workshops</h2>
       <div class="prose"><p>Alongside client work I speak at events and run sessions for Talent Acquisition leaders, on topics from AI in recruitment to building a function that scales.</p><p>If you would like me to speak at your event, get in touch.</p></div>
     </div>
-    <figure>{picture('simon-leather-jacket-wide', 'Simon Valentine in a black leather jacket')}</figure>
+    <figure>{picture('simon-binoculars', 'Simon Valentine looking through binoculars across Lake Geneva', cls='is-portrait')}</figure>
   </div>
 </section>
 
@@ -462,7 +464,7 @@ def build_work():
 {closing("Ready to transform your Talent Acquisition?", "Start with a conversation about your goals.")}
 """
     page("work/", "Work with me", "Advisory, consulting and community: how Simon Valentine helps organisations improve their Talent Acquisition function.",
-         body, current="work/", og_image="simon-leather-jacket-wide.jpg")
+         body, current="work/", og_image="simon-lake-bench.jpg")
 
 
 def build_ventures():

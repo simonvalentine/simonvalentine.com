@@ -314,3 +314,6 @@ p { margin: 0 0 1em; }
   .page-intro.with-photo .wrap { grid-template-columns: 1fr; }
   .page-intro.with-photo figure { order: -1; max-width: 300px; }
 }
+
+.split img.is-portrait { aspect-ratio: 4 / 5; object-position: 50% 30%; }
+@media (min-width: 821px) { .split figure:has(.is-portrait) { max-width: 460px; justify-self: center; width: 100%; } }
