@@ -14,6 +14,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SV_MARK = re.sub(r'<svg ', '<svg aria-hidden="true" focusable="false" ', (ROOT / "assets/img/sv-mark.svg").read_text().strip(), count=1)
 BUILD = Path(__file__).resolve().parent
 SITE_URL = "https://simonvalentine.com"
 YEAR = 2026
@@ -145,7 +146,7 @@ def header(depth, current):
     return f"""<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="{r or './'}" aria-label="Simon Valentine, home"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+    <a class="brand" href="{r or './'}" aria-label="Simon Valentine, home"><span class="brand-mark">{SV_MARK}</span>Simon Valentine</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav" aria-label="Main">
       {''.join(links)}
@@ -159,7 +160,7 @@ def footer(depth):
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-brand">
-      <a class="brand" href="{r or './'}"><span class="brand-mark" aria-hidden="true">SV</span>Simon Valentine</a>
+      <a class="brand" href="{r or './'}"><span class="brand-mark">{SV_MARK}</span>Simon Valentine</a>
       <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
     </div>
     <div>
@@ -218,6 +219,8 @@ def page(path, title, description, body, current=None, chrome=True, og_image="si
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#14212b">
 <link rel="icon" href="{r}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{r}favicon-64.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="{r}apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
@@ -641,9 +644,6 @@ def build_404():
 
 
 def build_extras():
-    (ROOT / "favicon.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#14212b"/>'
-        '<text x="32" y="41" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="800" font-size="25" fill="#f4c430">SV</text></svg>\n')
     urls = ["", "about/", "work/", "ventures/", "articles/", "contact/", "go/", "privacy-policy/", "terms-of-service/"] + [a["slug"] + "/" for a in ARTICLES]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"  <url><loc>{SITE_URL}/{u}</loc></url>" for u in urls]
