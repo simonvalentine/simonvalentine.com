@@ -39,7 +39,7 @@ NAV = [
     ("about/", "About"),
     ("work/", "Work"),
     ("ventures/", "Ventures"),
-    ("articles/", "Articles"),
+    ("articles/", "Content"),
 ]
 
 QUOTES = [
@@ -174,7 +174,7 @@ def footer(depth):
       <ul>
         <li><a href="{r}about/">About</a></li>
         <li><a href="{r}work/">Work</a></li>
-        <li><a href="{r}articles/">Articles</a></li>
+        <li><a href="{r}articles/">Content</a></li>
         <li><a href="{r}contact/">Contact</a></li>
       </ul>
     </div>
@@ -541,12 +541,21 @@ def build_articles():
     body = f"""
 <section class="page-intro">
   <div class="wrap">
-    <h1>Writing on Talent Acquisition.</h1>
-    <p>Ideas and lessons on hiring, leadership and where the industry is heading. New pieces appear first in my <a href="{NEWSLETTER}">LinkedIn newsletter</a>.</p>
+    <h1>Content.</h1>
+    <p>What I am sharing on LinkedIn, plus longer articles on hiring, leadership and where Talent Acquisition is heading.</p>
   </div>
 </section>
 <section class="section" style="padding-top:0">
-  <div class="wrap"><ul class="article-list">{rows}</ul></div>
+  <div class="wrap">
+    <div class="section-head"><h2>Latest on LinkedIn</h2><p>My most recent posts. <a href="https://www.linkedin.com/in/simonvalentine/recent-activity/all/">See all my activity</a>.</p></div>
+    {linkedin_posts_html()}
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Articles</h2><p>Longer pieces. New ones appear first in my <a href="{NEWSLETTER}">LinkedIn newsletter</a>.</p></div>
+    <ul class="article-list">{rows}</ul>
+  </div>
 </section>
 <section class="section band">
   <div class="wrap split">
@@ -555,13 +564,13 @@ def build_articles():
   </div>
 </section>
 """
-    page("articles/", "Articles", "Articles by Simon Valentine on Talent Acquisition, AI in recruitment and leadership.", body, current="articles/")
+    page("articles/", "Content", "Simon Valentine's latest LinkedIn posts and articles on Talent Acquisition, AI in recruitment and leadership.", body, current="articles/")
 
     for a in ARTICLES:
         body = f"""
 <article>
   <header class="article-head"><div class="wrap">
-    <a class="back" href="{{r}}articles/">All articles</a>
+    <a class="back" href="{{r}}articles/">All content</a>
     <h1>{esc(a['title'])}</h1>
     <time datetime="{a['date']}">{a['date_label']}</time>
   </div></header>
@@ -666,7 +675,7 @@ def build_legal():
 <h2>What this site collects</h2>
 <p>This is a simple information website. It has no forms, accounts or shop, and it does not set its own cookies or use analytics or advertising trackers. Embedded LinkedIn content is the one exception, described below.</p>
 <p>The site is hosted by GitHub Pages. Like most web hosts, GitHub may record technical information such as your IP address and browser type in server logs to keep the service secure and running. You can read <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>.</p>
-<p>The home page shows posts embedded from LinkedIn. When these load, LinkedIn may receive your IP address and set its own cookies, as described in <a href="https://www.linkedin.com/legal/privacy-policy">LinkedIn’s privacy policy</a>.</p>
+<p>The home and content pages show posts embedded from LinkedIn. When these load, LinkedIn may receive your IP address and set its own cookies, as described in <a href="https://www.linkedin.com/legal/privacy-policy">LinkedIn’s privacy policy</a>.</p>
 <p>Fonts are loaded from Google Fonts, which receives your IP address when the fonts are downloaded. See <a href="https://policies.google.com/privacy">Google’s privacy policy</a>.</p>
 <h2>When you contact me</h2>
 <p>If you email me or message me on LinkedIn, I use what you send only to reply and to follow up on your enquiry. I do not sell or share it.</p>
