@@ -456,7 +456,7 @@ def build_work():
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><h2>What clients say</h2></div>
+    <div class="section-head"><h2>What people say</h2></div>
     {quotes_html()}
   </div>
 </section>
