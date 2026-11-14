@@ -146,7 +146,7 @@ def header(depth, current):
     return f"""<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="{r or './'}" aria-label="Simon Valentine, home"><span class="brand-mark">{SV_MARK}</span>Simon Valentine</a>
+    <a class="brand" href="{r or './'}" aria-label="Simon Valentine, home">Simon.</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav" aria-label="Main">
       {''.join(links)}
@@ -160,7 +160,7 @@ def footer(depth):
     return f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-brand">
-      <a class="brand" href="{r or './'}"><span class="brand-mark">{SV_MARK}</span>Simon Valentine</a>
+      <a class="brand" href="{r or './'}" aria-label="Simon Valentine, home">Simon.</a>
       <p>Talent Acquisition advisor, consultant and community leader. Based in Switzerland, working worldwide.</p>
     </div>
     <div>
