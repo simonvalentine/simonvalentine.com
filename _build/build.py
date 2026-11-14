@@ -48,6 +48,12 @@ QUOTES = [
     ("Simon demonstrated professionalism, innovativeness and work ethic all but assure successful programs.", "Tom Young", "Director"),
 ]
 
+LINKEDIN_POSTS = [  # newest first: activity IDs of posts to embed on the home page
+    ("7513971007465095168", "Post: moving hiring conversations from who we need to what work needs doing"),
+    ("7480848448402042880", "Post: where I get my energy"),
+    ("7413914279281586176", "Post: the word guiding my year is Impact"),
+]
+
 CLIENTS = ["Manpower", "Costain", "Standard Chartered", "Cisco", "Uber"]
 
 # ---------------------------------------------------------------- articles
@@ -271,6 +277,13 @@ def article_list(items):
     return f'<ul class="article-list">{rows}</ul>'
 
 
+def linkedin_posts_html():
+    frames = "".join(
+        f'<div class="li-post"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:{pid}" title="{esc(title)}" loading="lazy" allowfullscreen></iframe></div>'
+        for pid, title in LINKEDIN_POSTS)
+    return f'<div class="li-posts">{frames}</div>'
+
+
 def contact_buttons(dark=False):
     return f"""<div class="actions">
   <a class="btn btn-primary" href="{LINKEDIN}">{ICON_LINKEDIN}Message me on LinkedIn</a>
@@ -348,6 +361,13 @@ def build_home():
 
 <section class="section">
   <div class="wrap">{clients_html()}</div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Latest on LinkedIn</h2><p>Recent posts from my LinkedIn. <a href="https://www.linkedin.com/in/simonvalentine/recent-activity/all/">See all my activity</a>.</p></div>
+    {linkedin_posts_html()}
+  </div>
 </section>
 
 <section class="section band">
@@ -582,6 +602,24 @@ def build_contact():
   </div>
 </section>
 <section class="section">
+  <div class="wrap li-badge-wrap">
+    <div>
+      <h2>Find me on LinkedIn</h2>
+      <p>Over 26,000 people follow along on LinkedIn, where I share what I am learning about Talent Acquisition.</p>
+    </div>
+    <a class="li-card" href="{LINKEDIN}">
+      <span class="li-card-top">{ICON_LINKEDIN}<span>LinkedIn</span></span>
+      <span class="li-card-body">
+        <img src="{{r}}assets/img/simon-avatar.jpg" alt="" width="72" height="72">
+        <span class="li-card-name">Simon Valentine</span>
+        <span class="li-card-headline">Global Talent Acquisition Leader</span>
+        <span class="li-card-meta">26,000+ followers</span>
+        <span class="btn btn-primary li-card-btn">View profile</span>
+      </span>
+    </a>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
   <div class="wrap">{picture('simon-lakefront', 'Simon Valentine looking out over Lake Geneva', cls='wide-photo')}</div>
 </section>
 """
@@ -626,8 +664,9 @@ def build_legal():
 <div class="wrap"><div class="prose legal">
 <p>This website, simonvalentine.com, is run by Simon Valentine Limited. This notice explains what information is handled when you visit it.</p>
 <h2>What this site collects</h2>
-<p>This is a simple information website. It has no forms, accounts or shop, and it does not set its own cookies or use analytics or advertising trackers.</p>
+<p>This is a simple information website. It has no forms, accounts or shop, and it does not set its own cookies or use analytics or advertising trackers. Embedded LinkedIn content is the one exception, described below.</p>
 <p>The site is hosted by GitHub Pages. Like most web hosts, GitHub may record technical information such as your IP address and browser type in server logs to keep the service secure and running. You can read <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>.</p>
+<p>The home page shows posts embedded from LinkedIn. When these load, LinkedIn may receive your IP address and set its own cookies, as described in <a href="https://www.linkedin.com/legal/privacy-policy">LinkedIn’s privacy policy</a>.</p>
 <p>Fonts are loaded from Google Fonts, which receives your IP address when the fonts are downloaded. See <a href="https://policies.google.com/privacy">Google’s privacy policy</a>.</p>
 <h2>When you contact me</h2>
 <p>If you email me or message me on LinkedIn, I use what you send only to reply and to follow up on your enquiry. I do not sell or share it.</p>
