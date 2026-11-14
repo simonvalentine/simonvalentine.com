@@ -17,3 +17,15 @@
     }
   });
 })();
+
+// Pause / play the home page photo slideshow
+(function () {
+  var btn = document.querySelector('.slides-toggle');
+  var slides = document.querySelector('.slides');
+  if (!btn || !slides) return;
+  btn.addEventListener('click', function () {
+    var paused = slides.classList.toggle('is-paused');
+    btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    btn.textContent = paused ? 'Play photos' : 'Pause photos';
+  });
+})();

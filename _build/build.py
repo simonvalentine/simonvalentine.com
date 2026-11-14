@@ -300,7 +300,15 @@ def build_home():
       {contact_buttons()}
       <p class="hero-meta">Consultant, advisor, leader and investor. Switzerland, England and New Zealand.</p>
     </div>
-    <figure class="hero-photo">{picture('simon-bench-portrait', 'Simon Valentine sitting on a bench by Lake Geneva', eager=True)}</figure>
+    <figure class="hero-photo">
+      <div class="slides" aria-label="Photos of Simon Valentine">
+        {picture('simon-navy-coat', 'Simon Valentine in a navy coat, arms folded, against a stone wall', eager=True)}
+        {picture('simon-leather-jacket', 'Simon Valentine in a black leather jacket in front of autumn vines')}
+        {picture('simon-blazer', 'Simon Valentine in a light blue blazer')}
+        {picture('simon-bench-portrait', 'Simon Valentine sitting on a bench by Lake Geneva')}
+      </div>
+      <button class="slides-toggle" type="button" aria-pressed="false">Pause photos</button>
+    </figure>
   </div>
 </section>
 
@@ -369,7 +377,7 @@ def build_about():
       <h1>A New Zealander in hiring, by way of the world.</h1>
       <p>I have spent more than twenty years in Talent Acquisition, working across cultures and continents. Here is how it started.</p>
     </div>
-    <figure>{picture('simon-headshot', 'Portrait of Simon Valentine in a suit', eager=True)}</figure>
+    <figure>{picture('simon-blazer', 'Simon Valentine in a light blue blazer', eager=True)}</figure>
   </div>
 </section>
 
@@ -400,7 +408,7 @@ def build_about():
 {closing("Want to work together?", "Whether it is your Talent Acquisition function or your own career, I am happy to talk it through.")}
 """
     page("about/", "About", "Simon Valentine grew up in rural New Zealand and has spent more than twenty years in Talent Acquisition around the world.",
-         body, current="about/", og_image="simon-headshot.jpg")
+         body, current="about/", og_image="simon-blazer.jpg")
 
 
 def build_work():
@@ -437,10 +445,10 @@ def build_work():
 <section class="section">
   <div class="wrap split">
     <div>
-      <h2>On stage and in the room</h2>
+      <h2>Speaking and workshops</h2>
       <div class="prose"><p>Alongside client work I speak at events and run sessions for Talent Acquisition leaders, on topics from AI in recruitment to building a function that scales.</p><p>If you would like me to speak at your event, get in touch.</p></div>
     </div>
-    <figure>{picture('simon-speaking', 'Simon Valentine speaking on stage at an event')}</figure>
+    <figure>{picture('simon-leather-jacket-wide', 'Simon Valentine in a black leather jacket')}</figure>
   </div>
 </section>
 
@@ -454,7 +462,7 @@ def build_work():
 {closing("Ready to transform your Talent Acquisition?", "Start with a conversation about your goals.")}
 """
     page("work/", "Work with me", "Advisory, consulting and community: how Simon Valentine helps organisations improve their Talent Acquisition function.",
-         body, current="work/", og_image="simon-speaking.jpg")
+         body, current="work/", og_image="simon-leather-jacket-wide.jpg")
 
 
 def build_ventures():
