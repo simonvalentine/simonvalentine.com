@@ -270,8 +270,28 @@ p { margin: 0 0 1em; }
 }
 
 @media print { .site-header, .site-footer, .nav-toggle { display: none; } body { background: #fff; } }
-.contact-photo { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 40%; border-radius: 24px; }
-@media (max-width: 640px) { .contact-photo { aspect-ratio: 4 / 3; } }
+.wide-photo { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 40%; border-radius: 24px; }
+@media (max-width: 640px) { .wide-photo { aspect-ratio: 4 / 3; } }
 
 .band-dark .quote blockquote::before { color: var(--blue-light); }
 .go-head .go-mark { width: 44px; height: 44px; color: var(--ink); margin: 0 auto 16px; }
+
+/* Photo row on the home page */
+.gallery { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: clamp(12px, 2vw, 24px); align-items: end; }
+.gallery img { width: 100%; height: clamp(280px, 36vw, 520px); object-fit: cover; border-radius: 24px; }
+.gallery picture:nth-child(2) img { height: clamp(240px, 30vw, 440px); }
+@media (max-width: 720px) {
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .gallery picture:last-child { grid-column: 1 / -1; }
+  .gallery img, .gallery picture:nth-child(2) img { height: 300px; }
+  .gallery picture:last-child img { height: 240px; }
+}
+
+/* Page intro with a portrait (About) */
+.page-intro.with-photo .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 32px clamp(32px, 6vw, 80px); align-items: end; }
+.page-intro.with-photo figure { margin: 0; }
+.page-intro.with-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 15%; border-radius: 24px; }
+@media (max-width: 820px) {
+  .page-intro.with-photo .wrap { grid-template-columns: 1fr; }
+  .page-intro.with-photo figure { order: -1; max-width: 300px; }
+}

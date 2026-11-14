@@ -318,6 +318,14 @@ def build_home():
   </div>
 </section>
 
+<section class="section">
+  <div class="wrap gallery">
+    {picture('simon-old-town', 'Simon Valentine walking through an old town street')}
+    {picture('simon-binoculars', 'Simon Valentine looking through binoculars by Lake Geneva')}
+    {picture('simon-lake-rail', 'Simon Valentine leaning on a railing by the lake')}
+  </div>
+</section>
+
 <section class="section band-dark on-dark">
   <div class="wrap">
     <div class="figures">
@@ -355,10 +363,13 @@ def build_home():
 
 def build_about():
     body = f"""
-<section class="page-intro">
+<section class="page-intro with-photo">
   <div class="wrap">
-    <h1>A New Zealander in hiring, by way of the world.</h1>
-    <p>I have spent more than twenty years in Talent Acquisition, working across cultures and continents. Here is how it started.</p>
+    <div>
+      <h1>A New Zealander in hiring, by way of the world.</h1>
+      <p>I have spent more than twenty years in Talent Acquisition, working across cultures and continents. Here is how it started.</p>
+    </div>
+    <figure>{picture('simon-headshot', 'Portrait of Simon Valentine in a suit', eager=True)}</figure>
   </div>
 </section>
 
@@ -389,7 +400,7 @@ def build_about():
 {closing("Want to work together?", "Whether it is your Talent Acquisition function or your own career, I am happy to talk it through.")}
 """
     page("about/", "About", "Simon Valentine grew up in rural New Zealand and has spent more than twenty years in Talent Acquisition around the world.",
-         body, current="about/", og_image="simon-lake-bench.jpg")
+         body, current="about/", og_image="simon-headshot.jpg")
 
 
 def build_work():
@@ -454,6 +465,9 @@ def build_ventures():
     <p>Three ventures, each tackling a different part of how organisations and Talent Acquisition leaders grow.</p>
   </div>
 </section>
+<section class="section" style="padding-top:0">
+  <div class="wrap">{picture('simon-lake-bag', 'Simon Valentine by Lake Geneva with the mountains behind', cls='wide-photo')}</div>
+</section>
 
 <section class="section">
   <div class="wrap">
@@ -506,8 +520,8 @@ def build_articles():
 </section>
 <section class="section band">
   <div class="wrap split">
-    <div><h2>Get the newsletter</h2><div class="prose"><p>Join the Talent Acquisition leaders who read my newsletter on LinkedIn.</p></div></div>
-    <div><a class="btn btn-primary" href="{NEWSLETTER}">{ICON_LINKEDIN}Subscribe on LinkedIn</a></div>
+    <figure>{picture('simon-reading', 'Simon Valentine reading the book Mindset on a bench')}</figure>
+    <div><h2>Get the newsletter</h2><div class="prose"><p>Join the Talent Acquisition leaders who read my newsletter on LinkedIn.</p></div><div class="actions"><a class="btn btn-primary" href="{NEWSLETTER}">{ICON_LINKEDIN}Subscribe on LinkedIn</a></div></div>
   </div>
 </section>
 """
@@ -558,7 +572,7 @@ def build_contact():
   </div>
 </section>
 <section class="section">
-  <div class="wrap">{picture('simon-lakefront', 'Simon Valentine looking out over Lake Geneva', cls='contact-photo')}</div>
+  <div class="wrap">{picture('simon-lakefront', 'Simon Valentine looking out over Lake Geneva', cls='wide-photo')}</div>
 </section>
 """
     page("contact/", "Contact", "Contact Simon Valentine on LinkedIn or by email.", body, current="contact/")
@@ -571,7 +585,7 @@ def build_go():
     body = f"""
 <div class="go">
   <div class="go-head">
-    <img src="{{r}}assets/img/simon-bench-portrait.jpg" alt="Simon Valentine" width="112" height="112">
+    <img src="{{r}}assets/img/simon-avatar.jpg" alt="Simon Valentine" width="112" height="112">
     <h1>Simon Valentine</h1>
     <p>Taking you to the next level</p>
   </div>
